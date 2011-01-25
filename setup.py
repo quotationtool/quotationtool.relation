@@ -48,14 +48,14 @@ setup(
         'zope.interface',
         'zope.schema',
         'zope.component',
-        'zope.app.intid',
+        'zope.intid',
         'zc.relation',
         ],
     extras_require = dict(
         test = [
             'zope.testing',
-            'zope.testrunner',
             'zope.configuration',
+            'zope.container',
             ],
         ),
     )
