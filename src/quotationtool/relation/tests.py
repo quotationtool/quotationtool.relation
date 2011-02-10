@@ -13,6 +13,26 @@ def testZCML(test):
 
     """
 
+def setUpSome(test):
+    """ There are subscribers that need intid in the dependencies
+    (zope.catalog)"""
+    import zope
+    # some dependencies
+    XMLConfig('meta.zcml', zope.component)()
+    XMLConfig('meta.zcml', zope.security)()
+    XMLConfig('meta.zcml', zope.securitypolicy)()
+    
+    XMLConfig('configure.zcml', zope.component)()
+    XMLConfig('configure.zcml', zope.security)()
+    XMLConfig('configure.zcml', zope.site)()
+    XMLConfig('configure.zcml', quotationtool.site)()
+    # subscribers
+    from quotationtool.site.interfaces import INewQuotationtoolSiteEvent
+    zope.component.provideHandler(
+        quotationtool.relation.createRelationCatalog,
+        adapts=[INewQuotationtoolSiteEvent])
+
+
 class SiteCreationTests(PlacelessSetup, unittest.TestCase):
 
     def setUp(self):
@@ -30,13 +50,6 @@ class SiteCreationTests(PlacelessSetup, unittest.TestCase):
             context = site, 
             default = None)
         self.assertTrue(cat is not None)
-        # we also made sure that there is an IntIds utility:
-        from zope.intid.interfaces import IIntIds
-        intids = zope.component.queryUtility(
-            IIntIds,
-            context = site,
-            default = None)
-        self.assertTrue(intids is not None)
 
 
 def test_suite():

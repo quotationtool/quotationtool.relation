@@ -4,6 +4,11 @@
   <include file="dependencies.zcml"/>
 
   <subscriber
+      handler=".intid.bootStrapSubscriber"
+      for="zope.processlifetime.IDatabaseOpenedWithRoot"
+      />
+
+  <subscriber
       handler=".indexSubscriber"
       />
 

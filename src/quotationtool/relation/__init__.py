@@ -45,19 +45,14 @@ def unindexSubscriber(event):
 
 @zope.component.adapter(INewQuotationtoolSiteEvent)
 def createRelationCatalog(event):
-    """Create a new relation catalog and ensure that there is an IntId
-    utility."""
+    """ Create a new relation catalog. """
+    
+    #The subscriber in intid ensures that there is an IntId utility.
+    #from zope.intid.interfaces import IIntIds
+    #assert(zope.component.queryUtility(IIntIds, default=None) is not None) 
+
     sm = event.object.getSiteManager()
-    from zope.intid.interfaces import IIntIds
-    intids = zope.component.queryUtility(
-        IIntIds, 
-        context = event.object, 
-        default = None)
-    if intids is None:
-        from zope.intid import IntIds
-        sm['default']['IntIds'] = intids = IntIds()
-        sm.registerUtility(intids, IIntIds)
-    sm['default']['RealtionCatalog'] = cat = zc.relation.catalog.Catalog(
+    sm['default']['RelationCatalog'] = cat = zc.relation.catalog.Catalog(
         dump, load)
     sm.registerUtility(cat, zc.relation.interfaces.ICatalog)
     

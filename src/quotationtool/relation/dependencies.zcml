@@ -5,6 +5,8 @@
   <include package="zope.security" file="meta.zcml"/>
   <include package="zope.component"/>
   <include package="zope.site"/>
+  <include package="zope.keyreference"/>
+  <include package="zope.intid"/>
 
   <include package="quotationtool.site"/>
 

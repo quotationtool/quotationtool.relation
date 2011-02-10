@@ -49,7 +49,10 @@ setup(
         'zope.schema',
         'zope.component',
         'zope.intid',
+        'zope.keyreference',
         'zc.relation',
+        'zope.app.appsetup',
+        'zope.processlifetime',
         ],
     extras_require = dict(
         test = [
